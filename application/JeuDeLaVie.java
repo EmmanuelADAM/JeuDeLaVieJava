@@ -76,8 +76,8 @@ public class JeuDeLaVie extends Application {
         //-----lancer le timer pour faire vivre la matrice
         Timeline littleCycle = new Timeline(new KeyFrame(Duration.millis(tempo),
                 event -> {
-                    matrice.copieGrille();
-                    matrice.animGrille();
+                    matrice.avancer();
+                    matrice.calculer();
                 }));
         littleCycle.setCycleCount(Timeline.INDEFINITE);
         littleCycle.play();
