@@ -7,5 +7,3 @@ Plusieurs versions sont possibles; ici cette version en JavaFX est volontairemen
 La classe principale est l'application JavaFX `application/JeuDeLaVie`
 
 Voir les autres branches pour les autres versions..
-
-Pour lancer l'application, lancer la classe application.JeuDeLaVie
