@@ -42,7 +42,7 @@ public class Cellule implements Cloneable {
      */
     boolean vivante;
     /** nature de la cellule*/
-//    boolean etatSuivant;
+    boolean etatSuivant;
 
     /**
      * coordonnee de la cellule dans la grille
@@ -71,7 +71,7 @@ public class Cellule implements Cloneable {
      */
     public Cellule(Cellule[][] grille, int x, int y, boolean vivante) {
         this.grille = grille;
-        this.vivante = etatPrecedent = vivante;
+        this.vivante = etatPrecedent = etatSuivant = vivante;
         this.x = x;
         this.y = y;
     }
@@ -96,27 +96,33 @@ public class Cellule implements Cloneable {
         //verifie si la cellule doit se desactiver (en sous population, ou surpopulation)
         //on peut remplacer les constantes par des valeurs
         if (vivante && (nbVivantes <= sousPopulation || nbVivantes >= surPopulation)) {
-            vivante = false;
+            etatSuivant = false;
         } else
             //verifie si la cellule doit etre active ou reactivée (population idéale)
             //on peut remplacer les constantes par des valeurs
             if (nbVivantes >= minPopulationRegeneratrice && nbVivantes <= maxPopulationRegeneratrice) {
-                vivante = true;
+                etatSuivant = true;
             }
         switchColor();
     }
 
-
+    /**change la couleur du cercle associe a la Cellule*/
     public void switchColor() {
         Color c = null;
-        if (etatPrecedent != vivante) {
-            if (vivante) c = Cellule.coulActive;
+        if (etatPrecedent != etatSuivant) {
+            if (etatSuivant) c = Cellule.coulActive;
             else c = Cellule.coulDesactive;
             circle.setFill(c);
         }
     }
 
+    /**fait avancer l'etat de la cellule vers son etat suivant*/
+    public void avancer()
+    {
+        vivante = etatSuivant;
+    }
 
+    
     /**
      * @return la valeur de la variable vivante
      */
