@@ -4,6 +4,8 @@ Plusieurs versions sont possibles; ici cette version en JavaFX est volontairemen
 - l'une pour la représentation de l'état courant
 - l'autre pour l'historique de l'état précédent.
 
+La classe principale est l'application JavaFX `application/JeuDeLaVie`
+
 Voir les autres branches pour les autres versions..
 
 Pour lancer l'application, lancer la classe application.JeuDeLaVie
