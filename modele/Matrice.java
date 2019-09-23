@@ -13,10 +13,7 @@ public class Matrice {
      * grille a l'instant t
      */
     Cellule[][] grille;
-    /**
-     * grille a l'instant t-1
-     */
-    Cellule[][] grilleAncienne;
+
     /**
      * taille de la grille
      */
@@ -28,7 +25,6 @@ public class Matrice {
 
     public Matrice() {
         grille = new Cellule[20][20];
-        grilleAncienne = new Cellule[20][20];
         taille = 20;
         init();
     }
@@ -40,7 +36,6 @@ public class Matrice {
     public Matrice(int taille, double densite) {
         this.taille = taille;
         grille = new Cellule[taille][taille];
-        grilleAncienne = new Cellule[taille][taille];
         this.densite = densite;
         init();
     }
@@ -55,9 +50,7 @@ public class Matrice {
     void init() {
         for (int i = 0; i < taille; i++)
             for (int j = 0; j < taille; j++) {
-                Cellule c = new Cellule(grilleAncienne, i, j, false);
-                grille[i][j] = c;
-                grilleAncienne[i][j] = (Cellule) c.clone();
+                grille[i][j] = new Cellule(grille, i, j, false);
             }
         initHasard();
     }
@@ -70,13 +63,10 @@ public class Matrice {
      */
     void initHasard() {
         Random r = new Random();
-        for (int i = 0; i < taille; i++)
-            for (int j = 0; j < taille; j++) {
-                if (r.nextDouble() < densite) {
-                    grille[i][j].vivante = true;
-                    grilleAncienne[i][j].vivante = true;
-                }
-            }
+        for (Cellule[] ligne:grille)
+            for (Cellule c:ligne)
+                if (r.nextDouble() < densite)
+                    c.vivante = c.etatSuivant = true;
     }
 
     /**change l'etat de la cellule en i,j*/
@@ -89,20 +79,20 @@ public class Matrice {
     /**
      * recopie l'etat de la grille dans l'ancienne
      */
-    public void copieGrille() {
-        for (int i = 0; i < taille; i++)
-            for (int j = 0; j < taille; j++)
-                grilleAncienne[i][j].vivante = grille[i][j].vivante;
+    public void avancer() {
+        for (Cellule[] ligne:grille)
+            for (Cellule c:ligne)
+                c.avancer();
     }
 
 
     /**
-     * demande a toutes les cellules de la grille a l'instant t d'evoluer
+     * demande a toutes les cellules de la grille de calculer l'etat suivant 
      */
-    public void animGrille() {
-        for (int i = 0; i < taille; i++)
-            for (int j = 0; j < taille; j++)
-                grille[i][j].evoluer();
+    public void calculer() {
+        for (Cellule[] ligne:grille)
+            for (Cellule c:ligne)
+                c.evoluer();
     }
 
     /**
@@ -111,7 +101,5 @@ public class Matrice {
     public Cellule[][] getGrille() {
         return grille;
     }
-
-
 
 }
