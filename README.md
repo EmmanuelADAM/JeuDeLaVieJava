@@ -9,3 +9,6 @@ Plusieurs versions sont possibles; ici cette version en JavaFX est volontairemen
 La classe principale est l'application JavaFX `application/JeuDeLaVie`
 
 Voir les autres branches pour les autres versions..
+
+ps. JavaFX n'est pas présent dans les distribution Java > 10. Les librairies JavaFX peuvent être téléchargées ici : 
+[https://openjfx.io](https://openjfx.io)
